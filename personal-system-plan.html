@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>个人工作系统落地计划</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f7f3;
+      --paper: #ffffff;
+      --ink: #202124;
+      --muted: #626760;
+      --line: #deded6;
+      --accent: #2f6f5e;
+      --accent-soft: #e3efe9;
+      --warn: #8a5b16;
+      --warn-soft: #fff1d6;
+      --shadow: 0 10px 30px rgba(32, 33, 36, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    header {
+      padding: 56px 24px 28px;
+      background: #eef3ec;
+      border-bottom: 1px solid var(--line);
+    }
+
+    main {
+      width: min(1120px, calc(100% - 32px));
+      margin: 28px auto 72px;
+      display: grid;
+      gap: 20px;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    h1 {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto 12px;
+      font-size: clamp(30px, 5vw, 52px);
+      letter-spacing: 0;
+    }
+
+    header p {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 780px;
+    }
+
+    section {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .cols {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fff;
+    }
+
+    .card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .warn {
+      background: var(--warn-soft);
+      color: var(--warn);
+    }
+
+    ul, ol {
+      margin: 12px 0 0;
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 7px 0;
+    }
+
+    .rule {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 12px;
+      padding: 14px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .rule:first-of-type {
+      border-top: 0;
+    }
+
+    .rule strong {
+      color: var(--accent);
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    label {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfbf8;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 3px;
+      accent-color: var(--accent);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 170px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      font: inherit;
+      background: #fbfbf8;
+      color: var(--ink);
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 14px;
+      background: var(--accent);
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: #e7e8e2;
+      color: var(--ink);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f0f3ed;
+    }
+
+    code {
+      background: #f0f3ed;
+      padding: 2px 6px;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 860px) {
+      .cols, .two {
+        grid-template-columns: 1fr;
+      }
+
+      .rule {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>清空大脑：个人工作系统落地计划</h1>
+    <p>目标不是再多维护一个工具，而是让每件事都有一个可信入口、一个明确归属、一个下一步动作。先用 30 天把系统跑起来，再优化。</p>
+  </header>
+
+  <main>
+    <section>
+      <span class="tag">一页原则</span>
+      <h2>工具分工先固定</h2>
+      <div class="grid cols" style="margin-top:16px">
+        <div class="card">
+          <h3>滴答清单：执行层</h3>
+          <p>只放需要提醒、排期、重复执行的任务。它回答：“今天到底做什么？”</p>
+          <ul>
+            <li>今天、明天、本周的行动</li>
+            <li>带日期或提醒的事项</li>
+            <li>重复任务和习惯</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Notion：项目层</h3>
+          <p>放项目、目标、资料库和决策记录。它回答：“这件事为什么做、做到哪了？”</p>
+          <ul>
+            <li>项目看板和项目说明</li>
+            <li>目标、里程碑、复盘</li>
+            <li>长期资料和模板</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Logseq：思考层</h3>
+          <p>保留每日笔记、临时想法、阅读摘录和思考连接。它回答：“我想到过什么？”</p>
+          <ul>
+            <li>每日流水和想法捕捉</li>
+            <li>读书、会议、灵感</li>
+            <li>还没成形的材料</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag warn">先止血</span>
+      <h2>立刻采用的 5 条规则</h2>
+      <div class="rule">
+        <strong>1. 所有新事先进收件箱</strong>
+        <div>不要当场分类。用最快的方式记到滴答清单“收件箱”或 Logseq 今日页。每天固定处理。</div>
+      </div>
+      <div class="rule">
+        <strong>2. 能 2 分钟完成就马上做</strong>
+        <div>少于 2 分钟的回复、记录、预约、确认，不进入系统，直接清掉。</div>
+      </div>
+      <div class="rule">
+        <strong>3. 每个项目只问一个问题</strong>
+        <div>下一步动作是什么？如果答不出来，这不是任务，是一个需要澄清的项目。</div>
+      </div>
+      <div class="rule">
+        <strong>4. 日期只给真实承诺</strong>
+        <div>滴答清单里的日期代表必须那天关注，不是“希望那天做”。想做但不确定的放“本周候选”。</div>
+      </div>
+      <div class="rule">
+        <strong>5. 每周只选 3 个重点</strong>
+        <div>一周最多 3 个主要推进项目。其他可以做，但不能挤掉这 3 个。</div>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">脑内清空</span>
+      <h2>30 分钟清空大脑</h2>
+      <p class="small">把下面问题当提示词，连续写，不整理、不判断。写完再处理。</p>
+      <textarea id="brainDump" placeholder="在这里倾倒所有事情：工作、生活、学习、财务、人际、健康、承诺、想法、担心、以后可能做的事……"></textarea>
+      <div class="actions">
+        <button id="saveDump">保存到此浏览器</button>
+        <button class="secondary" id="clearDump">清空文本框</button>
+      </div>
+      <div class="grid two" style="margin-top:18px">
+        <div class="card">
+          <h3>提示问题</h3>
+          <ul>
+            <li>有哪些已经答应别人但还没完成的事？</li>
+            <li>有哪些一直拖着、看到就烦的事？</li>
+            <li>有哪些项目已经开始但没有下一步？</li>
+            <li>有哪些要买、要修、要约、要回复？</li>
+            <li>有哪些学习、写作、产品、赚钱、健康目标？</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>处理公式</h3>
+          <ul>
+            <li><code>能做</code>：写成动词开头的下一步动作。</li>
+            <li><code>多人协作</code>：放进 Notion 项目页，并指定下一步。</li>
+            <li><code>有日期</code>：放滴答清单并设置日期。</li>
+            <li><code>只是资料</code>：放 Notion 或 Logseq，不放任务。</li>
+            <li><code>也许以后</code>：放 Notion “以后/也许”。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">落地结构</span>
+      <h2>建议建立的最小系统</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>位置</th>
+            <th>建立什么</th>
+            <th>使用规则</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>滴答清单</td>
+            <td>收件箱、今天、本周候选、等待中、重复任务</td>
+            <td>每天早晚各看一次。任务必须能直接执行，例如“给张三发确认邮件”，不要写“推进合作”。</td>
+          </tr>
+          <tr>
+            <td>Notion</td>
+            <td>项目数据库、目标数据库、资料库、以后/也许、复盘</td>
+            <td>一个项目页只维护状态、目标、截止时间、下一步、相关资料。不要把每天的小任务都搬进去。</td>
+          </tr>
+          <tr>
+            <td>Logseq</td>
+            <td>每日页、会议记录、阅读笔记、灵感、问题日志</td>
+            <td>允许混乱，但每天结束时抽出需要行动的内容，移到滴答清单或 Notion。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <span class="tag">30 天计划</span>
+      <h2>按周执行</h2>
+      <div class="grid two" style="margin-top:16px">
+        <div class="card">
+          <h3>第 1 周：清空和归并</h3>
+          <div class="checklist">
+            <label><input type="checkbox" data-key="w1-1">完成一次 30 分钟脑内清空。</label>
+            <label><input type="checkbox" data-key="w1-2">把所有零散任务集中到滴答清单收件箱。</label>
+            <label><input type="checkbox" data-key="w1-3">列出当前所有项目，放入 Notion 项目数据库。</label>
+            <label><input type="checkbox" data-key="w1-4">为每个活跃项目写出唯一下一步动作。</label>
+          </div>
+        </div>
+        <div class="card">
+          <h3>第 2 周：建立节奏</h3>
+          <div class="checklist">
+            <label><input type="checkbox" data-key="w2-1">每天早上选 3 个今日重点。</label>
+            <label><input type="checkbox" data-key="w2-2">每天晚上清空滴答清单收件箱。</label>
+            <label><input type="checkbox" data-key="w2-3">把 Logseq 今日页里的行动项转移出去。</label>
+            <label><input type="checkbox" data-key="w2-4">周末做第一次 30 分钟周回顾。</label>
+          </div>
+        </div>
+        <div class="card">
+          <h3>第 3 周：减少噪音</h3>
+          <div class="checklist">
+            <label><input type="checkbox" data-key="w3-1">删除或归档不再推进的项目。</label>
+            <label><input type="checkbox" data-key="w3-2">把长期想法统一移入 Notion “以后/也许”。</label>
+            <label><input type="checkbox" data-key="w3-3">检查滴答清单日期，只保留真实承诺。</label>
+            <label><input type="checkbox" data-key="w3-4">为重复事务建立自动重复任务。</label>
+          </div>
+        </div>
+        <div class="card">
+          <h3>第 4 周：复盘和固化</h3>
+          <div class="checklist">
+            <label><input type="checkbox" data-key="w4-1">统计哪些项目推进了，哪些一直停滞。</label>
+            <label><input type="checkbox" data-key="w4-2">保留有效模板，删掉多余字段。</label>
+            <label><input type="checkbox" data-key="w4-3">确定每周固定回顾时间。</label>
+            <label><input type="checkbox" data-key="w4-4">写一份个人系统说明，未来按它执行。</label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <span class="tag">每周模板</span>
+      <h2>周回顾固定流程</h2>
+      <ol>
+        <li>清空所有收件箱：滴答清单、Logseq 今日页、微信/邮件/纸条。</li>
+        <li>检查 Notion 项目：每个活跃项目必须有状态和下一步。</li>
+        <li>选出下周 3 个重点项目，并写出每个项目的第一个动作。</li>
+        <li>检查日历和承诺，把真实日期放入滴答清单。</li>
+        <li>归档完成项目，移动不做的项目到“以后/也许”或直接删除。</li>
+      </ol>
+    </section>
+
+    <section>
+      <span class="tag">目标</span>
+      <h2>系统成功的判断标准</h2>
+      <div class="grid cols" style="margin-top:16px">
+        <div class="card">
+          <h3>7 天后</h3>
+          <p>你知道所有事情在哪里，不再靠脑子记承诺。</p>
+        </div>
+        <div class="card">
+          <h3>30 天后</h3>
+          <p>每天打开滴答清单就能开始做事，每周打开 Notion 就能判断项目进展。</p>
+        </div>
+        <div class="card">
+          <h3>90 天后</h3>
+          <p>系统成为默认工作方式，工具数量没有增加，反而更少切换、更少焦虑。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const dump = document.querySelector("#brainDump");
+    const saveDump = document.querySelector("#saveDump");
+    const clearDump = document.querySelector("#clearDump");
+    const savedDump = localStorage.getItem("personal-system-brain-dump");
+
+    if (savedDump) {
+      dump.value = savedDump;
+    }
+
+    saveDump.addEventListener("click", () => {
+      localStorage.setItem("personal-system-brain-dump", dump.value);
+      saveDump.textContent = "已保存";
+      setTimeout(() => {
+        saveDump.textContent = "保存到此浏览器";
+      }, 1200);
+    });
+
+    clearDump.addEventListener("click", () => {
+      dump.value = "";
+    });
+
+    document.querySelectorAll("input[type='checkbox']").forEach((box) => {
+      const key = "personal-system-" + box.dataset.key;
+      box.checked = localStorage.getItem(key) === "1";
+      box.addEventListener("change", () => {
+        localStorage.setItem(key, box.checked ? "1" : "0");
+      });
+    });
+  </script>
+</body>
+</html>
